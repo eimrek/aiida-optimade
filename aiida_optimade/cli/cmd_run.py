@@ -38,12 +38,6 @@ from aiida_optimade.cli.options import LOGGING_LEVELS
     help="Bind socket to this port.",
 )
 @click.option(
-    "--group",
-    required=False,
-    type=click.STRING,
-    help="aiida group where the data curated.",
-)
-@click.option(
     "--reload",
     is_flag=True,
     default=False,
@@ -51,7 +45,7 @@ from aiida_optimade.cli.options import LOGGING_LEVELS
     help="Enable auto-reload. Note, if --debug is set, this will also be set to True.",
 )
 @click.pass_obj
-def run(obj: dict, log_level: str, debug: bool, host: str, port: int, group: Optional[str], reload: bool):
+def run(obj: dict, log_level: str, debug: bool, host: str, port: int, reload: bool):
     """Run AiiDA-OPTIMADE server."""
     import os
     import uvicorn
