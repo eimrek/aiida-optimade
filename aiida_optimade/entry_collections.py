@@ -297,7 +297,9 @@ class AiidaCollection(EntryCollection):
         return results, more_data_available
 
     @staticmethod
-    def _prepare_query(node_types: List[str], group: Optional[str], **kwargs) -> QueryBuilder:
+    def _prepare_query(
+        node_types: List[str], group: Optional[str] = None, **kwargs
+    ) -> QueryBuilder:
         """Workhorse function to prepare an AiiDA QueryBuilder query"""
         for key in kwargs:
             if key not in {"filters", "order_by", "limit", "project", "offset"}:
@@ -316,8 +318,8 @@ class AiidaCollection(EntryCollection):
 
         query = QueryBuilder(limit=limit, offset=offset)
         if group:
-            query.append(Group, filters={'label': group}, tag='group')
-            query.append(Node, with_group='group', project=project, filters=filters)
+            query.append(Group, filters={"label": group}, tag="group")
+            query.append(Node, with_group="group", project=project, filters=filters)
         else:
             query.append(Node, project=project, filters=filters)
         query.order_by(order_by)

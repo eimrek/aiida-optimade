@@ -1,8 +1,6 @@
 # pylint: disable=too-many-arguments
 import click
 
-from typing import Optional
-
 from aiida_optimade.cli.cmd_aiida_optimade import cli
 from aiida_optimade.cli.options import LOGGING_LEVELS
 
