@@ -1,3 +1,4 @@
+import os
 import pytest
 
 from optimade.models import (
@@ -7,6 +8,28 @@ from optimade.models import (
 )
 
 from ..utils import EndpointTests
+
+
+class TestStructuresGroupEndpoint(EndpointTests):
+    """Tests for /structures"""
+
+    request_str = "/structures"
+    response_cls = StructureResponseMany
+
+    @pytest.mark.skipif(
+        os.getenv("PYTEST_OPTIMADE_CONFIG_FILE")
+        != "./tests/static/test_data_curation_config.json",
+        reason="Test is not for data curation",
+    )
+    def test_structures_endpoint_data(self):
+        """Check known properties/attributes for successful response"""
+        from optimade.server.config import CONFIG
+
+        assert "data" in self.json_response
+        assert len(self.json_response["data"]) == CONFIG.page_limit
+        assert "meta" in self.json_response
+        assert self.json_response["meta"]["data_available"] == 528
+        assert self.json_response["meta"]["more_data_available"]
 
 
 class TestStructuresEndpoint(EndpointTests):
