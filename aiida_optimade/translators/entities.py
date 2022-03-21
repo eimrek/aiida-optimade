@@ -154,20 +154,17 @@ class AiidaEntityTranslator:  # pylint: disable=too-few-public-methods
 
         profile = get_manager().get_profile()
         LOGGER.debug(
-            "(%s) Updating Node %s in AiiDA DB!", profile.database_backend, self._pk
+            "(%s) Updating Node %s in AiiDA DB!", profile.storage_backend, self._pk
         )
-        if profile.database_backend == "django":
-            from aiida.backends.djsite.db.models import DbNode
-
-            with get_manager().get_backend().transaction():
-                DbNode.objects.filter(pk=self._pk).update(extras=extras)
-        elif profile.database_backend == "sqlalchemy":
-            from aiida.backends.sqlalchemy.models.node import DbNode
+        if profile.storage_backend == "psql_dos":
+            # TODO: this can be `set_extra` directly? is there performance issue with sqlite_zip?
+            from aiida.storage.psql_dos.models.node import DbNode
 
             with get_manager().get_backend().transaction() as session:
                 session.query(DbNode).filter(DbNode.id == self._pk).update(
                     values={"extras": extras}
                 )
+        # TODO: should be also support sqlite_zip
         else:
             raise AiidaError(
                 f'Unknown AiiDA backend "{profile.database_backend}" for profile'

@@ -44,7 +44,7 @@ def aiida_profile(top_dir, setup_config) -> TestManager:
         get_test_profile_name,
         test_manager,
     )
-    from aiida.tools.importexport import import_data
+    from aiida.tools.archive.imports import import_archive
 
     org_env_var = os.getenv("AIIDA_PROFILE")
     test_env_var = os.getenv("PYTEST_OPTIMADE_CONFIG_FILE")
@@ -57,11 +57,11 @@ def aiida_profile(top_dir, setup_config) -> TestManager:
             manager.reset_db()
 
             profile = load_profile().name
-            assert profile in ["test_profile", "test_django", "test_sqlalchemy"]
+            assert profile in ["test_profile"]
             os.environ["AIIDA_PROFILE"] = profile
 
             # Use AiiDA DB
-            import_data(top_dir.joinpath("tests/static/test_structures.aiida"))
+            import_archive(top_dir.joinpath("tests/static/test_structures.aiida"))
 
             if test_env_var:
                 # Use MongoDB

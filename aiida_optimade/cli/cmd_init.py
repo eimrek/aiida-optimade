@@ -77,7 +77,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                     )
                 STRUCTURES_MONGO.collection.drop()
                 if not silent:
-                    echo.echo_info(
+                    echo.echo_report(
                         f"Done dropping {STRUCTURES_MONGO.collection.full_name!r} "
                         "collection."
                     )
@@ -90,7 +90,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
 
                 number_of_nodes = STRUCTURES.count(**query_kwargs)
                 if not silent:
-                    echo.echo_info(
+                    echo.echo_report(
                         "Forcing re-calculation. About to remove OPTIMADE-specific "
                         f"extras for {number_of_nodes} Nodes."
                     )
@@ -111,13 +111,13 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                 del all_calculated_nodes
 
                 if not silent:
-                    echo.echo_info(
+                    echo.echo_report(
                         f"Done removing extra {extras_key!r} in {number_of_nodes} "
                         "Nodes."
                     )
 
         if not silent:
-            echo.echo_info(f"Initializing {profile}.")
+            echo.echo_report(f"Initializing {profile}.")
             echo.echo_warning("This may take several minutes!")
 
         if filename:
@@ -209,7 +209,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                 "documents have been initialized."
             )
         else:
-            echo.echo_info(
+            echo.echo_report(
                 "No new StructureData and CifData Nodes or MongoDB documents found to "
                 f"initialize for {profile}."
             )

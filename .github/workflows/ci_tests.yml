@@ -45,7 +45,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.8', '3.9', '3.10']
-        backend: ['django', 'sqlalchemy']
+        backend: ['psql_dos']
 
     services:
       mongo:
@@ -53,7 +53,7 @@ jobs:
         ports:
           - 27017:27017
       postgres:
-        image: postgres:10
+        image: postgres:12
         env:
           POSTGRES_DB: test_${{ matrix.backend }}
           POSTGRES_PASSWORD: test
@@ -133,9 +133,9 @@ jobs:
         ports:
         - 27017:27017
       postgres:
-        image: postgres:10
+        image: postgres:12
         env:
-          POSTGRES_DB: test_django
+          POSTGRES_DB: test_psql_dos
           POSTGRES_PASSWORD: test
         options: >-
           --health-cmd pg_isready
@@ -171,7 +171,7 @@ jobs:
 
     - name: Setup up environment for AiiDA
       env:
-        AIIDA_TEST_BACKEND: django
+        AIIDA_TEST_BACKEND: psql_dos
       run: .github/aiida/setup_aiida.sh
 
     - name: Load test data
@@ -209,9 +209,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10
+        image: postgres:12
         env:
-          POSTGRES_DB: test_django
+          POSTGRES_DB: test_psql_dos
           POSTGRES_PASSWORD: test
         options: >-
           --health-cmd pg_isready
@@ -245,7 +245,7 @@ jobs:
 
     - name: Setup up environment for AiiDA
       env:
-        AIIDA_TEST_BACKEND: django
+        AIIDA_TEST_BACKEND: psql_dos
       run: .github/aiida/setup_aiida.sh
 
     - name: Load test data (AiiDA)
@@ -279,9 +279,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10
+        image: postgres:12
         env:
-          POSTGRES_DB: test_django
+          POSTGRES_DB: test_psql_dos
           POSTGRES_PASSWORD: test
         options: >-
           --health-cmd pg_isready
@@ -315,7 +315,7 @@ jobs:
 
     - name: Setup up environment for AiiDA
       env:
-        AIIDA_TEST_BACKEND: django
+        AIIDA_TEST_BACKEND: psql_dos
       run: .github/aiida/setup_aiida.sh
 
     - name: Build docker image

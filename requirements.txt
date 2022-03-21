@@ -1,4 +1,4 @@
-aiida-core~=2.0.0
+aiida-core[atomic_tools]~=2.0.0b1
 optimade[mongo]~=0.16.10
 uvicorn~=0.17.4
 
