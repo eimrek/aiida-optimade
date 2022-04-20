@@ -14,7 +14,6 @@ COPY aiida_optimade ./aiida_optimade
 RUN pip install -U pip setuptools wheel \
     && pip install optimade==${OPTIMADE_TOOLS_VERSION} \
     && pip install aiida-core==${AIIDA_VERSION} \
-    && reentry scan \
     && pip install -e .
 
 COPY .docker/run.sh ./

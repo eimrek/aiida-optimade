@@ -80,7 +80,6 @@ jobs:
         python -m pip install -U pip
         pip install -U setuptools
         pip install -e .[testing]
-        reentry scan
 
     - name: Setup up environment for AiiDA
       env:
@@ -165,7 +164,6 @@ jobs:
         done < requirements.txt
 
         pip install ${aiida_core}
-        reentry scan
 
         pip install pymongo
 
@@ -241,7 +239,6 @@ jobs:
         done < requirements.txt
 
         pip install ${aiida_core}
-        reentry scan
 
     - name: Setup up environment for AiiDA
       env:
@@ -311,7 +308,6 @@ jobs:
         done < requirements.txt
 
         pip install ${aiida_core}
-        reentry scan
 
     - name: Setup up environment for AiiDA
       env:
