@@ -56,9 +56,10 @@ def aiida_profile(top_dir, setup_config) -> TestManager:
         ) as manager:
             manager.reset_db()
 
-            profile = load_profile().name
-            assert profile in ["test_profile"]
-            os.environ["AIIDA_PROFILE"] = profile
+            profile = load_profile()
+            # If test locally `AIIDA_TEST_PROFILE` may not set and `test_profile` will be used
+            assert profile.name in ["test_profile", "test_psql_dos"]
+            os.environ["AIIDA_PROFILE"] = profile.name
 
             # Use AiiDA DB
             import_archive(top_dir.joinpath("tests/static/test_structures.aiida"))

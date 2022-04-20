@@ -29,7 +29,9 @@
                     "broker_virtual_host": ""
                 }
             },
-            "options": {}
+            "options": {},
+            "test_profile": true,
+            "default_user_email": "aiida@localhost"
         }
     }
 }

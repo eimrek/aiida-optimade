@@ -5,7 +5,7 @@ WORKDIR /app
 # Install specific optimade and aiida-core versions
 ARG OPTIMADE_TOOLS_VERSION=0.16.10
 # FIXME when production version released
-ARG AIIDA_VERSION=2.0.0b1
+ARG AIIDA_VERSION=2.0.1
 
 # Copy repo contents
 COPY setup.py setup.json README.md requirements*.txt ./

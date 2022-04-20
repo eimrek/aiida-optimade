@@ -175,7 +175,7 @@ jobs:
     - name: Load test data
       run: |
         if [ "${{ matrix.database }}" == "aiida" ]; then
-          verdi import --migration --non-interactive .github/aiida/optimade.aiida
+          verdi archive import --migration .github/aiida/optimade.aiida
         else
             .github/mongo/load_data.py
         fi
@@ -246,7 +246,7 @@ jobs:
       run: .github/aiida/setup_aiida.sh
 
     - name: Load test data (AiiDA)
-      run: verdi import --migration --non-interactive .github/aiida/optimade.aiida
+      run: verdi archive import --migration .github/aiida/optimade.aiida
 
     - name: Build docker image
       run: docker-compose -f profiles/docker-compose-mongo.yml build --build-arg CONFIG_FILE=".github/mongo/ci_config.json"

@@ -40,6 +40,8 @@ def calc(obj: dict, fields: Tuple[str], force_yes: bool, silent: bool):
     from aiida import load_profile
     from aiida.cmdline.utils import echo
 
+    echo.CMDLINE_LOGGER.setLevel("INFO")
+
     try:
         profile: str = obj.get("profile").name
     except AttributeError:
@@ -68,12 +70,12 @@ def calc(obj: dict, fields: Tuple[str], force_yes: bool, silent: bool):
         number_of_nodes = STRUCTURES.count(**query_kwargs)
         if number_of_nodes:
             if not silent:
-                echo.echo_report(
+                echo.echo_info(
                     f"Field{'s' if len(fields) > 1 else ''} found for {number_of_nodes}"
                     f" Node{'s' if number_of_nodes > 1 else ''}."
                 )
         if not silent:
-            echo.echo_report(
+            echo.echo_info(
                 f"Total number of Nodes in profile {profile!r}: {STRUCTURES.count()}"
             )
 
@@ -110,7 +112,7 @@ def calc(obj: dict, fields: Tuple[str], force_yes: bool, silent: bool):
             del all_calculated_nodes
 
             if not silent:
-                echo.echo_report(
+                echo.echo_info(
                     f"Done removing {', '.join(fields)} from {number_of_nodes} Node"
                     f"{'s' if number_of_nodes > 1 else ''}."
                 )
@@ -154,7 +156,7 @@ def calc(obj: dict, fields: Tuple[str], force_yes: bool, silent: bool):
                 "AiiDA-OPTIMADE."
             )
         else:
-            echo.echo_report(
+            echo.echo_info(
                 "No StructureData and CifData Nodes found to calculate field"
                 f"{'s' if len(fields) > 1 else ''} {', '.join(fields)} for {profile!r}."
             )

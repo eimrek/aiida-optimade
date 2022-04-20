@@ -48,6 +48,10 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
     from aiida import load_profile
     from aiida.cmdline.utils import echo
 
+    # The default aiida.cmdline loglevel inherit from aiida loglevel is REPORT
+    # Here we use INFO loglevel for the operations
+    echo.CMDLINE_LOGGER.setLevel("INFO")
+
     filename: Path = Path(filename) if filename else filename
 
     if mongo and filename:
@@ -77,7 +81,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                     )
                 STRUCTURES_MONGO.collection.drop()
                 if not silent:
-                    echo.echo_report(
+                    echo.echo_info(
                         f"Done dropping {STRUCTURES_MONGO.collection.full_name!r} "
                         "collection."
                     )
@@ -90,7 +94,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
 
                 number_of_nodes = STRUCTURES.count(**query_kwargs)
                 if not silent:
-                    echo.echo_report(
+                    echo.echo_info(
                         "Forcing re-calculation. About to remove OPTIMADE-specific "
                         f"extras for {number_of_nodes} Nodes."
                     )
@@ -111,13 +115,13 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                 del all_calculated_nodes
 
                 if not silent:
-                    echo.echo_report(
+                    echo.echo_info(
                         f"Done removing extra {extras_key!r} in {number_of_nodes} "
                         "Nodes."
                     )
 
         if not silent:
-            echo.echo_report(f"Initializing {profile}.")
+            echo.echo_info(f"Initializing {profile}.")
             echo.echo_warning("This may take several minutes!")
 
         if filename:
@@ -209,7 +213,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
                 "documents have been initialized."
             )
         else:
-            echo.echo_report(
+            echo.echo_info(
                 "No new StructureData and CifData Nodes or MongoDB documents found to "
                 f"initialize for {profile}."
             )
