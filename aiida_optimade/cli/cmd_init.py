@@ -48,6 +48,10 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
     from aiida import load_profile
     from aiida.cmdline.utils import echo
 
+    # The default aiida.cmdline loglevel inherit from aiida loglevel is REPORT
+    # Here we use INFO loglevel for the operations
+    echo.CMDLINE_LOGGER.setLevel("INFO")
+
     filename: Path = Path(filename) if filename else filename
 
     if mongo and filename:
@@ -134,7 +138,7 @@ def init(obj: dict, force: bool, silent: bool, mongo: bool, filename: str):
             import bson.json_util
 
             updated_pks = range(len(STRUCTURES_MONGO))
-            chunk_size = 2 ** 24  # 16 MB
+            chunk_size = 2**24  # 16 MB
 
             if updated_pks and not silent:
                 echo.echo_warning(
@@ -229,7 +233,7 @@ def read_chunks(
         content.
 
     """
-    chunk_size = chunk_size if chunk_size and isinstance(chunk_size, int) else 2 ** 24
+    chunk_size = chunk_size if chunk_size and isinstance(chunk_size, int) else 2**24
     while True:
         data = file_object.read(chunk_size)
         if not data:
