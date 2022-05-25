@@ -3,7 +3,7 @@ FROM python:3.10
 WORKDIR /app
 
 # Install specific optimade and aiida-core versions
-ARG OPTIMADE_TOOLS_VERSION=0.16.10
+ARG OPTIMADE_TOOLS_VERSION=0.17.2
 # FIXME when production version released
 ARG AIIDA_VERSION=2.0.1
 
