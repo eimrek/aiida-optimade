@@ -1,4 +1,5 @@
 from typing import Any, List, Union
+from aiida import orm
 from aiida.orm.nodes import Node
 from aiida.orm.querybuilder import QueryBuilder
 
@@ -138,10 +139,6 @@ class AiidaEntityTranslator:  # pylint: disable=too-few-public-methods
 
     def _store_attributes_node_extra(self) -> None:
         """Store new attributes in Node extras"""
-        from aiida.manage.manager import get_manager
-        from aiida_optimade.common import AiidaError
-        from aiida import orm
-
         optimade = self._get_optimade_extras()
         if optimade:
             optimade.update(self.new_attributes)
@@ -151,4 +148,3 @@ class AiidaEntityTranslator:  # pylint: disable=too-few-public-methods
         LOGGER.debug("Updating Node %s in AiiDA DB!", self._pk)
         node = orm.load_node(self._pk)
         node.set_extra(self.EXTRAS_KEY, optimade)
-        
