@@ -147,42 +147,8 @@ class AiidaEntityTranslator:  # pylint: disable=too-few-public-methods
             optimade.update(self.new_attributes)
         else:
             optimade = self.new_attributes
-        # extras = (
-        #     self._get_unique_node_property("extras")
-        #     if self._get_unique_node_property("extras")
-        #     else {}
-        # )
-        # extras[self.EXTRAS_KEY] = optimade
-
-        # profile = get_manager().get_profile()
-
-        # if profile.storage_backend == "psql_dos":
-        #     # TODO: this can be `set_extra` directly? is there performance issue?
-        #     # from aiida.storage.psql_dos.models.node import DbNode
-        #     LOGGER.debug(f"{self._node.extras}")
-        #     # LOGGER.debug(f"extras: {extras}")
-
-        #     # self._node.reset_extras(extras)
-        #     node = orm.load_node(self._pk)
-        #     node.set_extra(self.EXTRAS_KEY, optimade)
-        #     LOGGER.debug(f"{self._node.extras}")
-        #     # LOGGER.debug(f"extras: {extras}")
-
-        #     # with get_manager().get_backend().transaction() as session:
-        #     #     session.query(DbNode).filter(DbNode.id == self._pk).update(
-        #     #         values={"extras": extras}
-        #     #     )
-
-        # else:
-        #     raise AiidaError(
-        #         f'Unknown AiiDA backend "{profile.database_backend}" for profile'
-        #         f"{profile}"
-        #     )
 
         LOGGER.debug("Updating Node %s in AiiDA DB!", self._pk)
         node = orm.load_node(self._pk)
         node.set_extra(self.EXTRAS_KEY, optimade)
-
-        # For posterity, this is how to do the same, going through AiiDA's API:
-        # self._node.set_extra_many(extras)
-        # self._node.set_extra(self.EXTRAS_KEY, optimade)
+        
