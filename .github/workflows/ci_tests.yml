@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.8', '3.9']
         backend: ['psql_dos']
 
     services:
@@ -102,6 +102,14 @@ jobs:
         OPTIMADE_MONGO_URI: mongodb://localhost:27017
         OPTIMADE_DATABASE_BACKEND: mongodb
       run: pytest -v --cov=./aiida_optimade/ --cov-report=xml:mongo_cov.xml --durations=20
+
+    - name: Test with pytest (Data Curation)
+      env:
+        AIIDA_TEST_BACKEND: ${{ matrix.backend }}
+        AIIDA_TEST_PROFILE: test_${{ matrix.backend }}
+        AIIDA_PROFILE: test_${{ matrix.backend }}
+        PYTEST_OPTIMADE_CONFIG_FILE: ./tests/static/test_data_curation_config.json
+      run: pytest -v --cov=./aiida_optimade/ --cov-report=xml --durations=20 tests/server/routers/test_structures.py::TestStructuresGroupEndpoint
 
     - name: Upload coverage to Codecov
       if: matrix.python-version == 3.8

@@ -8,7 +8,7 @@ from optimade.models import (
     StructureResponseMany,
     StructureResponseOne,
 )
-from optimade.server.config import CONFIG, SupportedBackend
+from optimade.server.config import SupportedBackend
 from optimade.server.entry_collections.mongo import MongoCollection
 from optimade.server.mappers.structures import (
     StructureMapper as OptimadeStructureMapper,
@@ -19,7 +19,7 @@ from aiida_optimade.entry_collections import AiidaCollection
 from aiida_optimade.mappers import StructureMapper
 from aiida_optimade.models import StructureResource
 from aiida_optimade.routers.utils import get_entries, get_single_entry, close_session
-
+from aiida_optimade.config import CONFIG
 
 ROUTER = APIRouter(redirect_slashes=True)
 
